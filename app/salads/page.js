@@ -7,10 +7,9 @@ import Link from 'next/link';
 
 export default function salads()  {
 
-  const items = useSelector(state => state.data.items);
-  const salads = items.salads;
-  const ingredients = items.ingredients;
-  const suppliers = items.suppliers;
+  const salads = useSelector(state => state.data.salads);
+  const ingredients = useSelector(state => state.data.ingredients);
+  const suppliers = useSelector(state => state.data.suppliers);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupContent, setPopupContent] = useState(null);
 
@@ -38,7 +37,29 @@ export default function salads()  {
           filteredIngredients.push(ingredients[i]);
         }
       }
-  
+
+      const suppliersId = filteredIngredients.map(item => item.supplierId)
+
+      const supplierName = [];
+      for (let i = 0; i < suppliers.length; i++) {
+        if (suppliersId.includes(suppliers[i].id)) {
+          supplierName.push(suppliers[i]);
+        }
+      }
+
+      const combinedIngredients = filteredIngredients.map(ingredient => {
+        const supplier = supplierName.find(supplier => supplier.id === ingredient.supplierId);
+        return {
+          id: ingredient.id,
+          name: ingredient.name,
+          costPerServing: ingredient.costPerServing,
+          weightPerServing: ingredient.weightPerServing,
+          hoursFresh: ingredient.hoursFresh,
+          suppliers: supplier.name,
+          suppliersId: ingredient.supplierId
+        }
+      })
+
       // Open the popup with the filtered ingredients
       handlePopupOpen(
         <div>
@@ -54,13 +75,13 @@ export default function salads()  {
               </tr>
             </thead>
             <tbody>
-              {filteredIngredients.map(ingredient => (
+              {combinedIngredients.map(ingredient => (
                 <tr key={ingredient.id}>
                   <td className="border px-4 py-2">{ingredient.id}</td>
                   <td className="border px-4 py-2">{ingredient.name}</td>
                   <td className="border px-4 py-2">{ingredient.costPerServing}</td>
                   <td className="border px-4 py-2">{ingredient.weightPerServing}</td>
-                  <td className="border px-4 py-2">{ingredient.supplierId}</td>
+                  <td className="border px-4 py-2">{ingredient.suppliers}</td>
                 </tr>
               ))}
             </tbody>
@@ -69,9 +90,6 @@ export default function salads()  {
       );
     }
   };
-  if(!salads || !ingredients || !suppliers) {
-    return <div>loading...</div>
-  }
 
   return (
     <main className="flex flex-row justify-center p-24 h-screen font-mono bg-slate-400">
@@ -89,7 +107,7 @@ export default function salads()  {
   <th className="border px-4 py-2">Size</th>
   <th className="border px-4 py-2">Price</th>
   <th className="border px-4 py-2">Ingredients</th>
-  <th className="border px-4 py-2">Subscribe</th>
+  <th className="border px-4 py-2">Subscribed Users</th>
 </tr>
 </thead>
 <tbody>
@@ -109,7 +127,7 @@ export default function salads()  {
            Ingredients
           </button>
   </td>
-  <td className="border px-4 py-2"><Link href='/subscription/subscripe'><button className='bg-slate-200 p-2 border-transparent rounded-md'>Subscribe</button></Link></td>
+  <td className="border px-4 py-2">{salad.subscriper ? salad.subscriper : <p>none</p>}</td>
 </tr>
 ))}
 </tbody>

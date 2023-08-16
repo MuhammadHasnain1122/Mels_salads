@@ -4,9 +4,13 @@ import Navbar from './Navbar';
 import './globals.css';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import { fetchItems } from './store/dataSlice';
+import { fetchBusinessLogic, fetchIngredients, fetchSalads, fetchSubscriptions, fetchSuppliers } from './store/dataSlice';
 
-store.dispatch(fetchItems());
+store.dispatch(fetchBusinessLogic());
+store.dispatch(fetchIngredients());
+store.dispatch(fetchSalads());
+store.dispatch(fetchSubscriptions());
+store.dispatch(fetchSuppliers());
 
 export const metadata = {
   title: 'Salad Maker',

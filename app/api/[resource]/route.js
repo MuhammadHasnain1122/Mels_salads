@@ -2,7 +2,7 @@ import {NextResponse} from 'next/server';
 import {writeFile} from 'fs/promises';
 
 // Routes
-export async function GET({params}) {
+export async function GET(request, {params}) {
   const response = await getData(params?.resource);
 
   return NextResponse.json(
@@ -28,7 +28,7 @@ export async function POST(request, {params}) {
   );
 }
 
-export const getData = async (resource) => {
+const getData = async (resource) => {
   return await new Promise(async (resolve, reject) => {
     let savedData = await import('@/data/savedData.json');
 

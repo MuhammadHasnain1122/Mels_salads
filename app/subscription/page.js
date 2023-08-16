@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 export const Subscriptions = () => {
 
   const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-  const items = useSelector(state => state.data.items);
-  const subscriptions = items.subscriptions;
+  const subscriptions = useSelector(state => state.data.subscriptions);
 
   if(!subscriptions) {
     return <div>loading...</div>

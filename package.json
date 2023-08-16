@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "fs-promise": "^2.0.3",
     "fs.promises": "^0.1.2",
     "next": "13.4.13",
     "react": "18.2.0",
