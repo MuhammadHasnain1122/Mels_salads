@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { FaTrash } from 'react-icons/fa';
 
 export default function saladmaker() {
 
@@ -10,18 +11,15 @@ export default function saladmaker() {
   const subscriptions = useSelector(state => state.data.subscriptions);
   const ingredientsList = useSelector(state => state.data.ingredients);
   const [showPopup, setShowPopup] = useState(false);
-  const salads = useSelector(state => state.data.salads);
-  const nextId = salads ? salads.length + 1 : 1;
   const [ingredient, setIngredint] = useState([{id: 1, serving: 1, ingredientId: '', weight: 0, cost: 0}]);
   const [saladName, setSaladName] = useState('Name Your Salad');
   const [selectedSize, setSelectedSize] = useState('medium');
   const [saladSizeInfo, setSaladSizeInfo] = useState({targetCost: 3.5, targetWeight: 350})
-  const [subscriper, setSubscriper] = useState()
+  const [subscriper, setSubscriper] = useState('')
   const [cost, setCost] = useState('');
   const [price, setPrice] = useState('');
   const [salad, setSalad] = useState({
         name: saladName,
-        id: nextId,
         size: selectedSize,
         ingredients: ingredient,
         cost: cost,
@@ -44,13 +42,25 @@ export default function saladmaker() {
       setPrice(totalWeight)
   }, [ingredient])
 
-  const yesClick = () => {
+  const submitClick = async () => {
     // Handle the user's confirmation
     setShowPopup(false);
-    console.log(salad)
+
+    try {
+      await fetch('/api/salads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(salad),
+      });
+      // Redirect or update state as needed
+    } catch (error) {
+      console.error('Error creating item:', error);
+    }
   };
 
-  const noClick = () => {
+  const cancelClick = () => {
     // Handle the user's cancellation
     setShowPopup(false);
   };
@@ -64,9 +74,8 @@ export default function saladmaker() {
 
     setSalad({
       name: saladName,
-      id: nextId,
       size: selectedSize,
-      ingredient: ingredients,
+      ingredients: ingredients,
       cost: cost,
       price: price,  
       subscriper: subscriper
@@ -144,13 +153,13 @@ export default function saladmaker() {
   return (
     <main className='flex flex-col items-center space-y-9 py-24'>
 
-      <div>
-        <div className="flex items-center">
+      <div className='flex flex-col items-start justify-start w-full px-10'>
+        <div className='flex flex-col items-start justify-start'>
             <select
             value={subscriper}
             onChange={subscriptionChange}
             className="border rounded p-1">
-              <option>Select Your Name</option>
+              <option>Select User</option>
             {subscriptions.map(item => (
               <option value={item.id} key={item.id}>{item.name}</option>
             ))}
@@ -226,8 +235,9 @@ export default function saladmaker() {
                           <div>
                               <button
                                   onClick={() => deleteRow(ingredient.id)}
-                                  className="bg-red-500 text-white p-1 rounded ml-2">
-                                  Delete
+                                  className="text-red-600 p-1 rounded ml-2"
+                                  >
+                                  <FaTrash />
                               </button>
                           </div>
                           </div>
@@ -240,7 +250,7 @@ export default function saladmaker() {
                 </div>
                 <div className='flex flex-row justify-end space-x-3'>
                     <button className="bg-red-500 text-white p-2 rounded">Cancel</button>
-                    <button type='button' onClick={Submit} className="bg-blue-500 text-white p-2 rounded">Submit</button>
+                    <button type='button' onClick={Submit} className="bg-blue-500 text-white p-2 rounded">Make Salad</button>
                 </div>
             </div>
             {showPopup && (
@@ -248,13 +258,13 @@ export default function saladmaker() {
                   <p className="text-center mb-4">Are you sure, you want to make the salad?</p>
                   <div className="flex justify-center space-x-4">
                     <button
-                      onClick={yesClick}
+                      onClick={submitClick}
                       className="bg-green-500 text-white px-4 py-2 rounded"
                     >
                       Yes
                     </button>
                     <button
-                      onClick={noClick}
+                      onClick={cancelClick}
                       className="bg-red-500 text-white px-4 py-2 rounded"
                     >
                       No

@@ -1,6 +1,8 @@
 import {NextResponse} from 'next/server';
 import {writeFile} from 'fs/promises';
 
+
+
 // Routes
 export async function GET(request, {params}) {
   const response = await getData(params?.resource);
@@ -12,6 +14,7 @@ export async function GET(request, {params}) {
 }
 
 export async function POST(request, {params}) {
+  debugger
   const {resource} = params;
   const isReset = resource === 'reset';
   const action = isReset ? resetSavedData : saveData;
@@ -35,7 +38,7 @@ const getData = async (resource) => {
     const firstLoad = !!Object.entries(savedData).length;
     const data = !firstLoad ? savedData : await import('@/data/initialData.json');
 
-    if (firstLoad) await saveDataCopy(data);
+    if (firstLoad) await saveDataCopyInitial(data);
 
     console.log({data, resource, r: data[resource]})
 
@@ -74,6 +77,10 @@ const saveData = async (resource, data) => {
 
 const saveDataCopy = async (data) => {
   await writeFile('./src/data/savedData.json', JSON.stringify(data, null, "\t"));
+}
+
+const saveDataCopyInitial = async (data) => {
+  await writeFile('./src/data/initialData.json', JSON.stringify(data, null, "\t"));
 }
 
 const resetSavedData = async () => {

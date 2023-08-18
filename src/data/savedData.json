@@ -337,59 +337,6 @@
 				{
 					"id": 1,
 					"numOfServings": 1
-				},
-				{
-					"id": 12,
-					"numOfServings": 1
-				},
-				{
-					"id": 20,
-					"numOfServings": 1
-				}
-			],
-			"cost": 0.3,
-			"targetStock": 20,
-			"currentStock": 0,
-			"price": 0.33
-		},
-		{
-			"name": "Example Salad 2",
-			"id": 2,
-			"size": "small",
-			"ingredients": [
-				{
-					"id": 19,
-					"numOfServings": 1
-				}
-			],
-			"cost": 0.3,
-			"targetStock": 20,
-			"currentStock": 0,
-			"price": 0.33
-		},
-		{
-			"name": "Example Salad 3",
-			"id": 3,
-			"size": "small",
-			"ingredients": [
-				{
-					"id": 30,
-					"numOfServings": 1
-				}
-			],
-			"cost": 0.3,
-			"targetStock": 20,
-			"currentStock": 0,
-			"price": 0.33
-		},
-		{
-			"name": "Example Salad 4",
-			"id": 4,
-			"size": "small",
-			"ingredients": [
-				{
-					"id": 4,
-					"numOfServings": 1
 				}
 			],
 			"cost": 0.3,
@@ -2365,59 +2312,6 @@
 				"ingredients": [
 					{
 						"id": 1,
-						"numOfServings": 1
-					},
-					{
-						"id": 12,
-						"numOfServings": 1
-					},
-					{
-						"id": 20,
-						"numOfServings": 1
-					}
-				],
-				"cost": 0.3,
-				"targetStock": 20,
-				"currentStock": 0,
-				"price": 0.33
-			},
-			{
-				"name": "Example Salad 2",
-				"id": 2,
-				"size": "small",
-				"ingredients": [
-					{
-						"id": 19,
-						"numOfServings": 1
-					}
-				],
-				"cost": 0.3,
-				"targetStock": 20,
-				"currentStock": 0,
-				"price": 0.33
-			},
-			{
-				"name": "Example Salad 3",
-				"id": 3,
-				"size": "small",
-				"ingredients": [
-					{
-						"id": 30,
-						"numOfServings": 1
-					}
-				],
-				"cost": 0.3,
-				"targetStock": 20,
-				"currentStock": 0,
-				"price": 0.33
-			},
-			{
-				"name": "Example Salad 4",
-				"id": 4,
-				"size": "small",
-				"ingredients": [
-					{
-						"id": 4,
 						"numOfServings": 1
 					}
 				],

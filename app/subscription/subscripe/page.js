@@ -1,22 +1,18 @@
 'use client'
 
 import { useState } from "react";
-import { useSelector } from "react-redux";
-// import { POST } from "@/app/api/[resource]/route";
+import { useRouter } from "next/navigation";
 
 export default function subscripe() {
 
-  const subscriptions = useSelector(state => state.data.subscriptions);
-  const nextId = subscriptions ? subscriptions.length + 1 : 1;
+  const router = useRouter();
   const [name, setName] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const weekdays = [{id: 1, label: 'Monday'}, {id: 2, label: 'Tuesday'}, {id: 3, label: 'Wednesday'}, {id: 4, label: 'Thursday'}, {id: 5, label: 'Friday'}];
   const [selectedItems, setSelectedItems] = useState([])
-  const [selectedWeekdayIndices, setSelectedWeekdayIndices] = useState([]);
-  const [selectedSize, setSelectedSize] = useState();
-  const [time, setTime] = useState();
+  const [selectedSize, setSelectedSize] = useState('small');
+  const [time, setTime] = useState('morning');
   const [userDetail, setUserDetail] = useState({
-    id: nextId,
     name: name,
     type: selectedSize,
     weekdays: selectedItems,
@@ -25,7 +21,6 @@ export default function subscripe() {
 
   const OnSubmit = () => {
     setUserDetail({
-      id: nextId,
       name: name,
       type: selectedSize,
       weekdays: selectedItems,
@@ -34,21 +29,27 @@ export default function subscripe() {
     setShowPopup(true);
   }
 
-  const yesClick = () => {
+  const submitClick = async () => {
     // Handle the user's confirmation
     setShowPopup(false);
     console.log(userDetail)
 
-      // try {
-      //   const response = await POST('/api/subscriptions', { json: userDetail });
-      //   const responseData = await response.json();
-      //   console.log('Response:', responseData);
-      // } catch (error) {
-      //   console.error('Error:', error);
-      // }
+    try {
+      await fetch('/api/subscriptions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userDetail),
+      });
+      // Redirect or update state as needed
+    } catch (error) {
+      console.error('Error creating item:', error);
+    }
+    router.push('/subscription?reload=true');
   };
 
-  const noClick = () => {
+  const cancelClick = () => {
     // Handle the user's cancellation
     setShowPopup(false);
   };
@@ -67,17 +68,12 @@ export default function subscripe() {
 			})
 		}
     setUserDetail({
-      id: nextId,
       name: name,
       type: selectedSize,
       weekdays: selectedItems,
       timePreference: time,
     })
 	}
-
-  if(subscriptions === undefined) {
-    return <div>loading...</div>
-  } 
 
   return (
     <main className='flex flex-row justify-center py-24'>
@@ -141,13 +137,13 @@ export default function subscripe() {
                   <p className="text-center mb-4">Are you sure, you want to subscripe?</p>
                   <div className="flex justify-center space-x-4">
                     <button
-                      onClick={yesClick}
+                      onClick={submitClick}
                       className="bg-green-500 text-white px-4 py-2 rounded"
                     >
                       Yes
                     </button>
                     <button
-                      onClick={noClick}
+                      onClick={cancelClick}
                       className="bg-red-500 text-white px-4 py-2 rounded"
                     >
                       No

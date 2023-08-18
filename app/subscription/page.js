@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
+
 export const Subscriptions = () => {
 
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
   const subscriptions = useSelector(state => state.data.subscriptions);
+  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
   if(!subscriptions) {
     return <div>loading...</div>
