@@ -14,7 +14,7 @@ export const Subscriptions = () => {
   }
 
   return (
-    <main className="flex flex-row justify-center p-24 font-mono bg-slate-400">
+    <main className="flex flex-row justify-center p-24">
         <div className="flex flex-col items-center space-y-10">
 
           <div className="flex flex-row justify-between w-full items-center">

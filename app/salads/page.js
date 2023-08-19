@@ -92,59 +92,61 @@ export default function salads()  {
   };
 
   return (
-    <main className="flex flex-row justify-center p-24 h-screen font-mono bg-slate-400">
-      <div className="flex flex-col items-center space-y-10">
+    <main className="flex flex-row justify-center h-screen bg-fixed bg-center bg-cover custom-img text-gray-300">
+      <div className="w-full h-full bg-black/70">
+        <div className="flex flex-col items-center space-y-10 p-24">
 
-<h1 className="text-xl font-medium">
-    {salads.length == 1 ? <p>Salad</p> : <p>Salads</p>}
-</h1>
+        <h1 className="text-xl font-medium">
+            {salads.length == 1 ? <p>Salad</p> : <p>Salads</p>}
+        </h1>
 
-<table className="table-auto border-collapse border">
-<thead>
-<tr>
-  <th className="border px-4 py-2">ID</th>
-  <th className="border px-4 py-2">Name</th>
-  <th className="border px-4 py-2">Size</th>
-  <th className="border px-4 py-2">Price</th>
-  <th className="border px-4 py-2">Ingredients</th>
-  <th className="border px-4 py-2">Subscribed Users</th>
-</tr>
-</thead>
-<tbody>
-{salads.map((salad) => ( 
+        <table className="table-auto border-collapse border">
+        <thead>
+        <tr>
+          <th className="border px-4 py-2">ID</th>
+          <th className="border px-4 py-2">Name</th>
+          <th className="border px-4 py-2">Size</th>
+          <th className="border px-4 py-2">Price</th>
+          <th className="border px-4 py-2">Ingredients</th>
+          <th className="border px-4 py-2">Subscribed Users</th>
+        </tr>
+        </thead>
+        <tbody>
+        {salads.map((salad) => ( 
 
-  <tr key={salad.id}>
-  <td className="border px-4 py-2">{salad.id}</td>
-  <td className="border px-4 py-2">{salad.name}</td>
-  <td className="border px-4 py-2">{salad.size}</td>
-  <td className="border px-4 py-2">{salad.price}</td>
-  <td className="border px-4 py-2">
-          <button
-            key={salad.id}
-            className="bg-slate-200 p-2 border-transparent rounded-md"
-            onClick={() => handleSeeIngredientsClick(salad.id)}
-          >
-           Ingredients
-          </button>
-  </td>
-  <td className="border px-4 py-2">{salad.subscriper ? salad.subscriper : <p>none</p>}</td>
-</tr>
-))}
-</tbody>
-</table>
-  <div>
-    <Link href='salads/saladmaker'>
-      <button
-      className='bg-slate-200 p-4 border-transparent rounded-md'
-      type='button'
-      >
-        Make Your Own Salad
-      </button>
-    </Link>
-  </div>
-</div>
+          <tr key={salad.id}>
+          <td className="border px-4 py-2">{salad.id}</td>
+          <td className="border px-4 py-2">{salad.name}</td>
+          <td className="border px-4 py-2">{salad.size}</td>
+          <td className="border px-4 py-2">{salad.price}</td>
+          <td className="border px-4 py-2">
+                  <button
+                    key={salad.id}
+                    className="bg-slate-200 p-2 border-transparent rounded-md text-black"
+                    onClick={() => handleSeeIngredientsClick(salad.id)}
+                  >
+                  Ingredients
+                  </button>
+          </td>
+          <td className="border px-4 py-2">{salad.subscriper ? salad.subscriper : <p>none</p>}</td>
+        </tr>
+        ))}
+        </tbody>
+        </table>
+          <div>
+            <Link href='salads/saladmaker'>
+              <button
+              className='bg-slate-200 p-4 border-transparent rounded-md text-black'
+              type='button'
+              >
+                Make Your Own Salad
+              </button>
+            </Link>
+          </div>
+              </div>
+      </div>
     {isPopupOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50 text-black">
           <div className="bg-white rounded-lg p-6 shadow-md">
             {popupContent}
             <button

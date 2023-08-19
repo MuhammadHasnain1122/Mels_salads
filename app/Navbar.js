@@ -1,29 +1,35 @@
 import Link from "next/link";
 
-
 export default function Navbar() {
   return (
-    <main className="flex flex-col justify-center items-center space-y-10 bg-slate-200 p-12 font-mono">
-        <div>
-            <Link href='/'>
-                <p className="text-6xl font-bold">
-                    Mel's Kitchen
-                </p>
-            </Link>
-        </div>
+    <main className="py-4 bg-black opacity-70">
+        
         <div className="flex flex-row justify-center items-center space-x-10">
             <div>
+                <Link href='/'>
+                    <p className="text-xl text-gray-300 font-semibold">
+                        Mel's Kitchen
+                    </p>
+                </Link>
+            </div>
+            <div>
                 <Link href='/salads'>
-                    <p className="text-3xl font-medium">
+                    <p className="text-xl text-gray-300 font-semibold">
                         Salads
                     </p>
                 </Link>
             </div>
-            <div className="text-3xl font-medium">||</div>
             <div>
                 <Link href='/subscription'>
-                    <p className="text-3xl font-medium">
+                    <p className="text-xl text-gray-300 font-semibold">
                         Subscriptions
+                    </p>
+                </Link>
+            </div>
+            <div>
+                <Link href='/dailyUpdates'>
+                    <p className="text-xl text-gray-300 font-semibold">
+                        Daily Updates
                     </p>
                 </Link>
             </div>

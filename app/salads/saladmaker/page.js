@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 export default function saladmaker() {
 
-
+  const router = useRouter();
   const businessLogic = useSelector(state => state.data.businessLogic);
   const subscriptions = useSelector(state => state.data.subscriptions);
   const ingredientsList = useSelector(state => state.data.ingredients);
@@ -22,8 +23,7 @@ export default function saladmaker() {
         name: saladName,
         size: selectedSize,
         ingredients: ingredient,
-        cost: cost,
-        price: price,  
+        cost: cost, 
         subscriper: subscriper
   })
 
@@ -58,6 +58,7 @@ export default function saladmaker() {
     } catch (error) {
       console.error('Error creating item:', error);
     }
+    router.push('/salads')
   };
 
   const cancelClick = () => {
@@ -76,8 +77,7 @@ export default function saladmaker() {
       name: saladName,
       size: selectedSize,
       ingredients: ingredients,
-      cost: cost,
-      price: price,  
+      cost: cost, 
       subscriper: subscriper
 })
   setShowPopup(true)
